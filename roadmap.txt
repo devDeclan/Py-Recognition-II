@@ -1,0 +1,4 @@
+1. Get video data
+2. Obtain frames from video data
+3. Structure frames directories for keras preprocessing
+4. load data with keras
