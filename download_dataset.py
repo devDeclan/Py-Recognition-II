@@ -133,7 +133,8 @@ def decode_videos_to_frames():
   #
   video_list = list(
     map(
-      lambda p: path.join("/".join(p.split("/"))[-2:], fullpath_list)
+      lambda p: path.join("/".join(p.split("/")[-2:])),
+      fullpath_list
     )
   )
 
