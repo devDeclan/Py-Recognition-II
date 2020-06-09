@@ -34,7 +34,7 @@ def download_dataset():
     ">", "/dev/null",
     "&&", "mv",
     os.path.join(DATASET_ROOT, "UCF-101"),
-    os.path.join(DATASET_ROOT, "dataset")
+    videos_path
   ])
   os.system(command)
   print("👾 dataset file downloaded and extracted")
@@ -62,7 +62,10 @@ def download_dataset():
   command = " ".join([
     "unzip",
     "-q", annotations_zip,
-    "-d", annotations_path
+    "-d", DATASET_ROOT,
+    "&&", "mv",
+    os.path.join(DATASET_ROOT, "ucfTrainTestlist"),
+    annotations_path
   ])
   os.system(command)
   print("👾 annotations file downloaded and extracted")
