@@ -69,22 +69,20 @@ def decode_videos_to_frames():
 def build_file_list():
 	pass
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	# get arguments from terminal
-	parser = argparse.ArgumentParser(description = "prepare UCF101 dataset")
-    parser.add_argument('--download', action='store_true', default=True)
-    parser.add_argument('--decode_video', action='store_true', default=True)
-    parser.add_argument('--build_file_list', action='store_true', default=True)
-    args = parser.parse_args()
+  parser = argparse.ArgumentParser(description = "prepare UCF101 dataset")
+  parser.add_argument("--download", action="store_true", default=True)
+  parser.add_argument("--decode_video", action="store_true", default=True)
+  parser.add_argument("--build_file_list", action="store_true", default=True)
+  args = parser.parse_args()
 
-    if args.download:
-        print('🤖 downloading UCF101 dataset.')
-        download_dataset()
-
-    if args.decode_video:
-        print('🤖 decoding videos to frames.')
-        decode_videos_to_frames()
-
-    if args.build_file_list:
-        print('🤖 generating training files.')
-        build_file_list()
+  if args.download:
+    print("🤖 downloading UCF101 dataset")
+    download_dataset()
+  if args.decode_video:
+    print("🤖 decoding videos to frames")
+    decode_videos_to_frames()
+  if args.build_file_list:
+    print("🤖 generating training files")
+    build_file_list()
