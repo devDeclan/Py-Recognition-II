@@ -334,20 +334,29 @@ def download_ucf101(args):
         os.makedirs(target_dir)
 
     if args.tiny_dataset:
-        video_url = 'https://github.com/bryanyzhu/tiny-ucf101/raw/master/tiny-UCF101.zip'
-        os.system('wget -P %s %s' % (target_dir, video_url))
-        with zipfile.ZipFile(os.path.join(target_dir, 'tiny-UCF101.zip')) as zf:
-            zf.extractall(path=target_dir)
+        if os.path.exists(os.path.join(target_dir, 'tiny-UCF101.zip')):
+            print("skipping as file already exists")
+        else:
+            video_url = 'https://github.com/bryanyzhu/tiny-ucf101/raw/master/tiny-UCF101.zip'
+            os.system('wget -P %s %s' % (target_dir, video_url))
+            with zipfile.ZipFile(os.path.join(target_dir, 'tiny-UCF101.zip')) as zf:
+                zf.extractall(path=target_dir)
     else:
-        video_url = 'https://www.crcv.ucf.edu/data/UCF101/UCF101.rar'
-        os.system('wget -P %s %s' % (target_dir, video_url))
-        with rarfile.RarFile(os.path.join(target_dir, 'UCF101.rar')) as rf:
-            rf.extractall(path=target_dir)
+        if os.path.exists(os.path.join(target_dir, 'UCF101.rar')):
+            print("skipping as file already exists")
+        else:
+            video_url = 'https://www.crcv.ucf.edu/data/UCF101/UCF101.rar'
+            os.system('wget -P %s %s' % (target_dir, video_url))
+            with rarfile.RarFile(os.path.join(target_dir, 'UCF101.rar')) as rf:
+                rf.extractall(path=target_dir)
 
-    anno_url = 'https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip'
-    os.system('wget -P %s %s' % (target_dir, anno_url))
-    with zipfile.ZipFile(os.path.join(target_dir, 'UCF101TrainTestSplits-RecognitionTask.zip'))  as zf:
-        zf.extractall(path=target_dir)
+    if os.path.exists(os.path.join(target_dir, 'UCF101TrainTestSplits-RecognitionTask.zip')):
+        print("skipping as file already exists")
+    else:
+        anno_url = 'https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip'
+        os.system('wget -P %s %s' % (target_dir, anno_url))
+        with zipfile.ZipFile(os.path.join(target_dir, 'UCF101TrainTestSplits-RecognitionTask.zip'))  as zf:
+            zf.extractall(path=target_dir)
 
 if __name__ == '__main__':
     args = parse_args()
