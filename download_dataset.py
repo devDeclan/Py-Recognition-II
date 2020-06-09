@@ -4,6 +4,7 @@ import argparse
 import glob
 import mmcv
 import random
+import fnmatch
 from os import path
 from tqdm import tqdm
 from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT
