@@ -158,6 +158,8 @@ def parse_splits():
     )
   ]
 
+  class_mapping = {x[1]: int(x[0]) - 1 for x in class_index}
+
   def line2rec(line):
     items = line.strip().split(" ")
     video = items[0].split(".")[0]
