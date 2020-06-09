@@ -1,13 +1,14 @@
 echo "🤖 updating repositories"
-sudo apt-get update
+sudo apt-get --quiet update
 
 
 echo "🤖 installing necessary packages"
 
-echo "👾 installing unrar"
-sudo apt install unrar -y
-
 echo "👾 installing python3"
-sudo apt install python3 -y
+sudo apt install --quiet python3 -y
 
-echo ""
+echo "👾 installing unrar"
+sudo apt install --quiet unrar -y
+
+echo "👾 installing unzip"
+sudo apt install --quiet unzip -y
