@@ -76,7 +76,8 @@ def download_dataset():
   os.system(command)
   print("🤓 annotations file downloaded and extracted")
 
-def decode_video_to_frames((full_path, video_path, video_id)):
+def decode_video_to_frames(video_item):
+  full_path, video_path, video_id = video_item
   video_name = vid_path.split(".")[0]
   out_full_path = path.join(FRAMES_ROOT, video_name)
   try:
