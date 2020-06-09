@@ -154,7 +154,7 @@ def parse_splits():
   class_index = [
     x.strip().split()
     for x in open(
-      path.join(ANNOTATIONS_ROOT, "classIndex.txt")
+      path.join(ANNOTATIONS_ROOT, "classInd.txt")
     )
   ]
 
