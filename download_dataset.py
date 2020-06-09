@@ -140,7 +140,7 @@ def decode_videos_to_frames():
 
   pool = Pool(WORKERS)
   pool.map(
-    dump_frames,
+    decode_video_to_frames,
     zip(
       fullpath_list,
       video_list,
