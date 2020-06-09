@@ -26,7 +26,7 @@ def download_dataset():
     print("👾 extracting dataset file")
     videos_path = os.path.join(DATASET_ROOT, "videos")
     command = " ".join([
-      "unrar",
+      "unrar", "-q"
       "x", dataset_rar,
       DATASET_ROOT,
       "&&",
@@ -48,7 +48,7 @@ def download_dataset():
       "wget", "--quiet",
       "--directory-prefix", DATASET_ROOT,
       "--output-document", annotations_zip,
-      dataset_url
+      annotations_url
     ])
     os.system(command)
 
