@@ -1,11 +1,11 @@
 import os
-from os import path
 import sys
 import argparse
 import glob
 import mmcv
-import tqdm
 import random
+from os import path
+from tqdm import tqdm
 from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT
 from multiprocessing import Pool, current_process
 
