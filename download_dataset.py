@@ -15,9 +15,9 @@ def download_dataset():
 	if not os.path.exists(dataset_rar):
 		dataset_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101.rar"
 		command = " ".join([
-			"wget",
+			"wget", "--quiet",
 			"--directory-prefix", DATASET_ROOT,
-			"--output-document", "dataset.rar",
+			"--output-document", dataset_rar,
 			dataset_url
 		])
 		os.system(command)
@@ -41,9 +41,9 @@ def download_dataset():
 	if not os.path.exists(annotations_zip):
 		annotations_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip"
 		command = " ".join([
-			"wget",
+			"wget", "--quiet",
 			"--directory-prefix", DATASET_ROOT,
-			"--output-document", "annotations.zip",
+			"--output-document", annotations_zip,
 			dataset_url
 		])
 		os.system(command)
