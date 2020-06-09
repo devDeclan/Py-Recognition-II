@@ -123,12 +123,12 @@ def parse_args():
     parser.add_argument('--build_file_list', action='store_true', default=True)
     args = parser.parse_args()
 
-    args.download_dir = os.path.expanduser(args.download_dir)
-    args.src_dir = os.path.expanduser(args.src_dir)
-    args.out_dir = os.path.expanduser(args.out_dir)
-    args.frame_path = os.path.expanduser(args.frame_path)
-    args.anno_dir = os.path.expanduser(args.anno_dir)
-    args.out_list_path = os.path.expanduser(args.out_list_path)
+    #args.download_dir = os.path.expanduser(args.download_dir)
+    #args.src_dir = os.path.expanduser(args.src_dir)
+    #args.out_dir = os.path.expanduser(args.out_dir)
+    #args.frame_path = os.path.expanduser(args.frame_path)
+    #args.anno_dir = os.path.expanduser(args.anno_dir)
+    #args.out_list_path = os.path.expanduser(args.out_list_path)
 
     return args
 
