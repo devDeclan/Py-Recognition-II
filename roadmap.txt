@@ -2,3 +2,8 @@
 2. Obtain frames from video data
 3. Structure frames directories for keras preprocessing
 4. load data with keras
+
+
+REFERENCES
+Download script hugely dabbed from https://github.com/open-mmlab/mmaction
+I can"t come and kee myself
