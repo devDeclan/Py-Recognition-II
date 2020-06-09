@@ -168,7 +168,7 @@ def parse_splits():
     return video, label
 
   splits = []
-  for i in range(1, 4):
+  for i in tqdm(range(1, 4)):
     train_list = [
       line2rec(x) for x in open(
         path.join(
@@ -193,7 +193,7 @@ def parse_directory():
     return "/".join(x.split("/")[-2:])
 
   # Parse directories holding extracted frames from standard benchmarks
-  print("👾 parse frames under folder {}".format(path))
+  print("👾 parse frames under folder {}".format(FRAMES_ROOT))
   frame_folders = glob.glob(path.join(FRAMES_ROOT, "*", "*"))
   def count_files(directory, prefix_list):
     lst = os.listdir(directory)
@@ -256,16 +256,10 @@ def build_file_list():
       shuffle = True
     )
     filename = "train_split_{}_frames.txt".format(i + 1)
-    with open(
-      path.join(ANNOTATIONS_ROOT, filename),
-      "w"
-    ) as f:
+    with open(path.join(ANNOTATIONS_ROOT, filename), "w") as f:
       f.writelines(lists[0][0])
     filename = 'valid_split_{}_frames.txt'.format(i + 1)
-    with open(
-      path.join(ANNOTATIONS_ROOT, filename),
-      "w"
-    ) as f:
+    with open(path.join(ANNOTATIONS_ROOT, filename), "w") as f:
       f.writelines(lists[0][1])
 
 if __name__ == "__main__":
@@ -282,6 +276,6 @@ if __name__ == "__main__":
   if args.decode_video:
     print("🤖 decoding videos to frames")
     decode_videos_to_frames()
-  if args.build_file_list:
+  if args.build_list:
     print("🤖 generating training files")
     build_file_list()
