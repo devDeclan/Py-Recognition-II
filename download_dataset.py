@@ -161,7 +161,7 @@ def parse_splits():
   def line2rec(line):
     items = line.strip().split(" ")
     video = items[0].split(".")[0]
-    video = "/".join(video.split("/")[-level:])
+    video = "/".join(video.split("/")[-2:])
     label = class_mapping[items[0].split("/")[0]]
     return video, label
 
