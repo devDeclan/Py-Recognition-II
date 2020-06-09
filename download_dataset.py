@@ -114,7 +114,7 @@ def decode_videos_to_frames():
 
   # create sub directories for frame classes
   videos_path = path.join(DATASET_ROOT, "videos")
-  classes = os.lostdir(videos_path)
+  classes = os.listdir(videos_path)
   for classname in classes:
     class_dir = path.join(FRAMES_ROOT, classname)
     if not path.isdir(class_dir):
