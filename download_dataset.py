@@ -266,9 +266,9 @@ def build_file_list():
 if __name__ == "__main__":
   # get arguments from terminal
   parser = argparse.ArgumentParser(description = "prepare UCF101 dataset")
-  parser.add_argument("--download", action="store_true", default=True)
-  parser.add_argument("--decode_video", action="store_true", default=True)
-  parser.add_argument("--build_file_list", action="store_true", default=True)
+  parser.add_argument("--download", action="store_true")
+  parser.add_argument("--decode_video", action="store_true")
+  parser.add_argument("--build_file_list", action="store_true")
   args = parser.parse_args()
 
   if args.download:
