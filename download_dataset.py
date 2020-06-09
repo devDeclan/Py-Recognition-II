@@ -247,7 +247,7 @@ def build_split_list(split, frame_info, shuffle):
 def build_file_list():
   frame_info = parse_directory()
   split_tp = parse_splits()
-  assert len(split_tp) == args.num_split
+  assert len(split_tp) == 3
 
   for i, split in enumerate(split_tp):
     lists = build_split_list(
