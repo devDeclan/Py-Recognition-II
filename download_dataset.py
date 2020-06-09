@@ -10,9 +10,9 @@ def download_dataset():
 	# check if the dataset file has already been downloaded
 	# otherwise download it
 	# (ano get data like that😂)
-	print("👾 downloading dataset file")
 	dataset_rar = os.path.join(DATASET_ROOT, "dataset.rar")
 	if not os.path.exists(dataset_rar):
+    print("👾 downloading dataset file")
 		dataset_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101.rar"
 		command = " ".join([
 			"wget", "--quiet",
@@ -23,22 +23,26 @@ def download_dataset():
 		os.system(command)
 
 		# extract the videos
+    print("👾 extracting dataset file")
 		videos_path = os.path.join(DATASET_ROOT, "videos")
 		command = " ".join([
 			"unrar",
-			"e", dataset_rar,
-			videos_path
+			"x", dataset_rar,
+			DATASET_ROOT,
+      "&&",
+      "mv", os.path.join(DATASET_ROOT, "UCF-101"),
+      os.path.join(DATASET_ROOT, "dataset")
 		])
 		os.system(command)
-		print("👾 file downloaded and extracted")
+		print("👾 dataset file downloaded and extracted")
 	else:
-		print("👾 file already exists, skipping")
+		print("👾 dataset file already exists, skipping download")
 
 	# check if the annotations file has already been download
 	# otherwise download it
-	print("👾 downloading annotations file")
 	annotations_zip = os.path.join(DATASET_ROOT, "annotations.zip")
 	if not os.path.exists(annotations_zip):
+    print("👾 downloading annotations file")
 		annotations_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip"
 		command = " ".join([
 			"wget", "--quiet",
@@ -49,6 +53,7 @@ def download_dataset():
 		os.system(command)
 
 		# extract the annotations
+    print("👾 extracting annotations file")
 		annotations_path = os.path.join(DATASET_ROOT, "annotations")
 		command = " ".join([
 			"unzip",
@@ -56,9 +61,9 @@ def download_dataset():
 			"-d", annotations_path
 		])
 		os.system(command)
-		print("👾 file downloaded and extracted")
+		print("👾 annotations file downloaded and extracted")
 	else:
-		print("👾 file already exists, skipping")
+		print("👾 annotations file already exists, skipping download")
 
 def decode_videos_to_frames():
 	pass
