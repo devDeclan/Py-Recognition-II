@@ -26,11 +26,11 @@ def download_dataset():
     print("👾 extracting dataset file")
     videos_path = os.path.join(DATASET_ROOT, "videos")
     command = " ".join([
-      "unrar", "-q"
-      "x", dataset_rar,
-      DATASET_ROOT,
-      "&&",
-      "mv", os.path.join(DATASET_ROOT, "UCF-101"),
+      "unrar", "x",
+      dataset_rar, DATASET_ROOT,
+      ">", "/dev/null",
+      "&&", "mv",
+      os.path.join(DATASET_ROOT, "UCF-101"),
       os.path.join(DATASET_ROOT, "dataset")
     ])
     os.system(command)
