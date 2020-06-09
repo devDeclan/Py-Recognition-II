@@ -21,22 +21,23 @@ def download_dataset():
       dataset_url
     ])
     os.system(command)
-
-    # extract the videos
-    print("👾 extracting dataset file")
-    videos_path = os.path.join(DATASET_ROOT, "videos")
-    command = " ".join([
-      "unrar", "x",
-      dataset_rar, DATASET_ROOT,
-      ">", "/dev/null",
-      "&&", "mv",
-      os.path.join(DATASET_ROOT, "UCF-101"),
-      os.path.join(DATASET_ROOT, "dataset")
-    ])
-    os.system(command)
-    print("👾 dataset file downloaded and extracted")
+    print("👾 dataset file downloaded")
   else:
     print("👾 dataset file already exists, skipping download")
+
+  # extract the videos
+  print("👾 extracting dataset file")
+  videos_path = os.path.join(DATASET_ROOT, "videos")
+  command = " ".join([
+    "unrar", "x",
+    dataset_rar, DATASET_ROOT,
+    ">", "/dev/null",
+    "&&", "mv",
+    os.path.join(DATASET_ROOT, "UCF-101"),
+    os.path.join(DATASET_ROOT, "dataset")
+  ])
+  os.system(command)
+  print("👾 dataset file downloaded and extracted")
 
   # check if the annotations file has already been download
   # otherwise download it
@@ -51,19 +52,20 @@ def download_dataset():
       annotations_url
     ])
     os.system(command)
-
-    # extract the annotations
-    print("👾 extracting annotations file")
-    annotations_path = os.path.join(DATASET_ROOT, "annotations")
-    command = " ".join([
-      "unzip",
-      "-q", annotations_zip,
-      "-d", annotations_path
-    ])
-    os.system(command)
-    print("👾 annotations file downloaded and extracted")
+    print("👾 annotations file downloaded")
   else:
     print("👾 annotations file already exists, skipping download")
+
+  # extract the annotations
+  print("👾 extracting annotations file")
+  annotations_path = os.path.join(DATASET_ROOT, "annotations")
+  command = " ".join([
+    "unzip",
+    "-q", annotations_zip,
+    "-d", annotations_path
+  ])
+  os.system(command)
+  print("👾 annotations file downloaded and extracted")
 
 def decode_videos_to_frames():
   pass
