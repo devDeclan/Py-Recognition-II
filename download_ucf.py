@@ -94,7 +94,7 @@ def run_warp_optical_flow(vid_item, dev_id=0):
 def parse_args():
     parser = argparse.ArgumentParser(description='prepare UCF101 dataset')
     parser.add_argument('--download_dir', type=str, default='datasets')
-    parser.add_argument('--src_dir', type=str, default='datasets/dataset')
+    parser.add_argument('--src_dir', type=str, default='datasets/UCF-101')
     parser.add_argument('--out_dir', type=str, default='datasets/rawframes')
     parser.add_argument('--frame_path', type=str, default='datasets/rawframes')
     parser.add_argument('--anno_dir', type=str, default='datasets/ucfTrainTestlist')

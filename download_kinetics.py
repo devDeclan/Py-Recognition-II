@@ -12,6 +12,7 @@ import zipfile
 from pipes import quote
 from multiprocessing import Pool, current_process
 import csv
+from lib.config import 
 
 def dump_frames(vid_item):
 
