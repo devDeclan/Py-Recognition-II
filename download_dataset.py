@@ -3,79 +3,79 @@ import argparse
 from lib.config import DATASET_ROOT
 
 def download_dataset():
-	# checking if dataset root exist otherwise create it
-	if not os.path.exists(DATASET_ROOT):
-		os.makedirs(DATASET_ROOT)
+  # checking if dataset root exist otherwise create it
+  if not os.path.exists(DATASET_ROOT):
+    os.makedirs(DATASET_ROOT)
 
-	# check if the dataset file has already been downloaded
-	# otherwise download it
-	# (ano get data like that😂)
-	dataset_rar = os.path.join(DATASET_ROOT, "dataset.rar")
-	if not os.path.exists(dataset_rar):
+  # check if the dataset file has already been downloaded
+  # otherwise download it
+  # (ano get data like that😂)
+  dataset_rar = os.path.join(DATASET_ROOT, "dataset.rar")
+  if not os.path.exists(dataset_rar):
     print("👾 downloading dataset file")
-		dataset_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101.rar"
-		command = " ".join([
-			"wget", "--quiet",
-			"--directory-prefix", DATASET_ROOT,
-			"--output-document", dataset_rar,
-			dataset_url
-		])
-		os.system(command)
+    dataset_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101.rar"
+    command = " ".join([
+      "wget", "--quiet",
+      "--directory-prefix", DATASET_ROOT,
+      "--output-document", dataset_rar,
+      dataset_url
+    ])
+    os.system(command)
 
-		# extract the videos
+    # extract the videos
     print("👾 extracting dataset file")
-		videos_path = os.path.join(DATASET_ROOT, "videos")
-		command = " ".join([
-			"unrar",
-			"x", dataset_rar,
-			DATASET_ROOT,
+    videos_path = os.path.join(DATASET_ROOT, "videos")
+    command = " ".join([
+      "unrar",
+      "x", dataset_rar,
+      DATASET_ROOT,
       "&&",
       "mv", os.path.join(DATASET_ROOT, "UCF-101"),
       os.path.join(DATASET_ROOT, "dataset")
-		])
-		os.system(command)
-		print("👾 dataset file downloaded and extracted")
-	else:
-		print("👾 dataset file already exists, skipping download")
+    ])
+    os.system(command)
+    print("👾 dataset file downloaded and extracted")
+  else:
+    print("👾 dataset file already exists, skipping download")
 
-	# check if the annotations file has already been download
-	# otherwise download it
-	annotations_zip = os.path.join(DATASET_ROOT, "annotations.zip")
-	if not os.path.exists(annotations_zip):
+  # check if the annotations file has already been download
+  # otherwise download it
+  annotations_zip = os.path.join(DATASET_ROOT, "annotations.zip")
+  if not os.path.exists(annotations_zip):
     print("👾 downloading annotations file")
-		annotations_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip"
-		command = " ".join([
-			"wget", "--quiet",
-			"--directory-prefix", DATASET_ROOT,
-			"--output-document", annotations_zip,
-			dataset_url
-		])
-		os.system(command)
+    annotations_url = "https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip"
+    command = " ".join([
+      "wget", "--quiet",
+      "--directory-prefix", DATASET_ROOT,
+      "--output-document", annotations_zip,
+      dataset_url
+    ])
+    os.system(command)
 
-		# extract the annotations
+    # extract the annotations
     print("👾 extracting annotations file")
-		annotations_path = os.path.join(DATASET_ROOT, "annotations")
-		command = " ".join([
-			"unzip",
-			"-q", annotations_zip,
-			"-d", annotations_path
-		])
-		os.system(command)
-		print("👾 annotations file downloaded and extracted")
-	else:
-		print("👾 annotations file already exists, skipping download")
+    annotations_path = os.path.join(DATASET_ROOT, "annotations")
+    command = " ".join([
+      "unzip",
+      "-q", annotations_zip,
+      "-d", annotations_path
+    ])
+    os.system(command)
+    print("👾 annotations file downloaded and extracted")
+  else:
+    print("👾 annotations file already exists, skipping download")
 
 def decode_videos_to_frames():
-	pass
-	# checking if frames root exist otherwise create it
-	#if not os.path.exists(DATASET_ROOT):
-	#	os.makedirs(DATASET_ROOT)
+  pass
+  # checking if frames root exist otherwise create it
+  #if not os.path.exists(DATASET_ROOT):
+  # os.makedirs(DATASET_ROOT)
 
 def build_file_list():
-	pass
+  pass
 
 if __name__ == "__main__":
-	# get arguments from terminal
+  # get arguments from terminal
   parser = argparse.ArgumentParser(description = "prepare UCF101 dataset")
   parser.add_argument("--download", action="store_true", default=True)
   parser.add_argument("--decode_video", action="store_true", default=True)
