@@ -28,7 +28,9 @@ def clear_corrupted():
 
 def load_data():
 	train_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, 'trainlist01_frames.csv'))
-	test_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, "testlist01_frames"))
+	test_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, "testlist01_frames.csv"))
+	print(train_dataset.head())
+	print(test_dataset.head())
 	'''train_dataset = image_dataset_from_directory(
 		directory = TRAIN_DATASET_ROOT,
 		labels = 'inferred',
