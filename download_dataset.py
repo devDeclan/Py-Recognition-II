@@ -199,12 +199,16 @@ def new_list():
   for classname in classes:
     class_dir = path.join(FRAMES_ROOT, classname)
     videos = os.listdir(class_dir)
+    i = 0
     for video in videos:
       video_dir = path.join(class_dir, video)
       frames = glob.glob(
         "{}/*.jpg".format(video_dir)
       )
       frames_list.extend(frames[:10])
+      i = i + 1
+      if i == 50:
+        break
 
   df = pd.DataFrame()
   df['image'] = frames_list
