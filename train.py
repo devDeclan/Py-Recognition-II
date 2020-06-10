@@ -32,7 +32,9 @@ def load_data():
 	train_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, 'trainlist01_frames.csv'))
 	test_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, "testlist01_frames.csv"))
 	print(train_dataset.head())
+	print(train_dataset.tail())
 	print(test_dataset.head())
+	print(test_dataset.tail())
 	
 	train_images = []
 	for i in tqdm(range(train_dataset.shape[0])):
