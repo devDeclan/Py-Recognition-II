@@ -224,12 +224,12 @@ def build_video_list():
       
     df = pd.DataFrame()
     df['video'] = frames_list
-    df = df[:-1]
     print(" frames obtained")
 
     print(" adding labels")
     df['label'] = labels_list
     print(" labels added")
+    df = df[:-1]
 
     filename = "{}_frames.csv".format(
       splits[i].split(".")[0]
