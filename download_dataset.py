@@ -202,7 +202,7 @@ def build_video_list():
     frames_list = []
     label_list = []
     for vid in tqdm(range(len(videos))):
-      cap = cv2.VideoCapture(path.join(VIDEOS_ROOT, vid))
+      cap = cv2.VideoCapture(path.join(VIDEOS_ROOT, videos[vid]))
       frames = []
       try:
         while True:
@@ -219,7 +219,7 @@ def build_video_list():
       finally:
         cap.release()
       frames_list.append(np.array(frames) / 255.0)
-      label_list.append(vid.split("/")[0])
+      label_list.append(videos[vid].split("/")[0])
       
     df = pd.DataFrame()
     df['video'] = frames_list
