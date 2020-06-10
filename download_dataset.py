@@ -7,6 +7,7 @@ import cv2
 import random
 import fnmatch
 import pandas as pd
+import numpy as np
 from os import path
 from tqdm import tqdm
 from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT
