@@ -150,117 +150,17 @@ def decode_videos_to_frames():
     )
   )
 
-def parse_splits():
-  class_index = [
-    x.strip().split()
-    for x in open(
-      path.join(ANNOTATIONS_ROOT, "classInd.txt")
-    )
-  ]
-
-  class_mapping = {x[1]: int(x[0]) - 1 for x in class_index}
-
-  def line2rec(line):
-    items = line.strip().split(" ")
-    video = items[0].split(".")[0]
-    video = "/".join(video.split("/")[-2:])
-    label = class_mapping[items[0].split("/")[0]]
-    return video, label
-
-  splits = []
-  for i in tqdm(range(1, 4)):
-    train_list = [
-      line2rec(x) for x in open(
-        path.join(
-          ANNOTATIONS_ROOT,
-          "trainlist{:02d}.txt".format(i)
-        )
-      )
-    ]
-    test_list = [
-      line2rec(x) for x in open(
-        path.join(
-          ANNOTATIONS_ROOT,
-          "testlist{:02d}.txt".format(i)
-        )
-      )
-    ]
-    splits.append((train_list, test_list))
-  return splits
-
-def parse_directory():
-  def key_func(x):
-    return "/".join(x.split("/")[-2:])
-
-  # Parse directories holding extracted frames from standard benchmarks
-  print("👾 parse frames under folder {}".format(FRAMES_ROOT))
-  frame_folders = glob.glob(path.join(FRAMES_ROOT, "*", "*"))
-  def count_files(directory, prefix_list):
-    lst = os.listdir(directory)
-    cnt_list = [len(fnmatch.filter(lst, x+"*")) for x in prefix_list]
-    return cnt_list
-
-  # check RGB
-  frame_info = {}
-  for i, f in enumerate(frame_folders):
-    all_count = count_files(f, ("img_", "flow_x_", "flow_y_"))
-    k = key_func(f)
-
-    x_count = all_count[1]
-    y_count = all_count[2]
-    if x_count != y_count:
-      raise ValueError(
-        "😔 x and y direction of video {} have different number of flow images".format(f)
-      )
-    if i % 200 == 0:
-      print("🤓 {} videos parsed".format(i))
-      
-  frame_info[k] = (f, all_count[0], x_count)
-  print("🤓 frame folder analysis done")
-  return frame_info
-
-def build_split_list(split, frame_info, shuffle):
-
-  def build_set_list(set_list):
-    rgb_list, flow_list = list(), list()
-    for item in set_list:
-      if item[0] not in frame_info:
-        # print("item:", item)
-        continue
-      elif frame_info[item[0]][1] > 0:
-        rgb_cnt = frame_info[item[0]][1]
-        flow_cnt = frame_info[item[0]][2]
-        rgb_list.append('{} {} {}\n'.format(item[0], rgb_cnt, item[1]))
-        flow_list.append('{} {} {}\n'.format(item[0], flow_cnt, item[1]))
-      else:
-        rgb_list.append('{} {}\n'.format(item[0], item[1]))
-        flow_list.append('{} {}\n'.format(item[0], item[1]))
-    if shuffle:
-      random.shuffle(rgb_list)
-      random.shuffle(flow_list)
-    return rgb_list, flow_list
-
-  train_rgb_list, train_flow_list = build_set_list(split[0])
-  test_rgb_list, test_flow_list = build_set_list(split[1])
-  return (train_rgb_list, test_rgb_list), (train_flow_list, test_flow_list)
-
-def build_file_list():
-  frame_info = parse_directory()
-  split_tp = parse_splits()
-  assert len(split_tp) == 3
-
-  for i, split in enumerate(split_tp):
-    lists = build_split_list(
-      split_tp[i],
-      frame_info,
-      shuffle = True
-    )
-    filename = "train_split_{}_frames.txt".format(i + 1)
-    with open(path.join(ANNOTATIONS_ROOT, filename), "w") as f:
-      f.writelines(lists[0][0])
-    filename = 'valid_split_{}_frames.txt'.format(i + 1)
-    with open(path.join(ANNOTATIONS_ROOT, filename), "w") as f:
-      f.writelines(lists[0][1])
+def build_list():
+  splits = glob.glob("{}/*list*.txt".format(ANNOTATIONS_ROOT))
+  for i in tqdm(range(len(splits))):
+    file = open(splits[i], "r")
+    temp = file.read()
+    videos = temp.split("\n")
+  '''classes = os.listdir(FRAMES_ROOT)
+  for classname in classes:
+    class_dir = path.join(FRAMES_ROOT, classname)
+    fullpath_list = glob.glob(class_dir + "/*/*.avi")'''
+  
 
 if __name__ == "__main__":
   # get arguments from terminal
@@ -278,4 +178,4 @@ if __name__ == "__main__":
     decode_videos_to_frames()
   if args.build_list:
     print("🤖 generating training files")
-    build_file_list()
+    build_list()

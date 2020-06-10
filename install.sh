@@ -13,6 +13,9 @@ sudo apt -qq install unrar -y
 echo "👾 installing unzip"
 sudo apt -qq install unzip -y
 
+echo "👾 installing wget"
+sudo apt -qq install wget -y
+
 
 echo "🤖 setting up python environment"
 
