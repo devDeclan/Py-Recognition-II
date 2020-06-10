@@ -3,6 +3,7 @@ import sys
 import argparse
 import glob
 import mmcv
+import cv2
 import random
 import fnmatch
 import pandas as pd
@@ -189,12 +190,53 @@ def build_list():
     df.to_csv(filename, index = False)
     print(" file saved")
 
+def build_video_list():
+  splits = glob.glob("{}/*list*.txt".format(ANNOTATIONS_ROOT))
+  print(splits)
+  for i in tqdm(range(len(splits))):
+    file = open(splits[i], "r")
+    temp = file.read()
+    videos = temp.split("\n")
 
+    print(" obtaining frames")
+    frames_list = []
+    label_list = []
+    for vid in tqdm(range(len(videos))):
+      cap = cv2.VideoCapture(path.join(VIDEOS_ROOT, vid))
+      frames = []
+      try:
+        while True:
+          ret, frame = cap.read()
+          if not ret:
+            break
+          frame = crop_center_square(frame)
+          frame = cv2.resize(frame, resize)
+          frame = frame[:, :, [2, 1, 0]]
+          frames.append(frame)
+          
+          if len(frames) == max_frames:
+            break
+      finally:
+        cap.release()
+      frames_list.append(np.array(frames) / 255.0)
+      label_list.append(vid.split("/")[0])
+      
+    df = pd.DataFrame()
+    df['video'] = frames_list
+    df = df[:-1]
+    print(" frames obtained")
 
-  '''classes = os.listdir(FRAMES_ROOT)
-  for classname in classes:
-    class_dir = path.join(FRAMES_ROOT, classname)
-    fullpath_list = glob.glob(class_dir + "/*/*.avi")'''
+    print(" adding labels")
+    df['label'] = labels_list
+    print(" labels added")
+
+    filename = "{}_frames.csv".format(
+      splits[i].split(".")[0]
+    )
+    print(" saving to file {}".format(filename))
+    df.to_csv(filename, index = False)
+    print(" file saved")
+  
   
 
 if __name__ == "__main__":
@@ -213,4 +255,4 @@ if __name__ == "__main__":
     decode_videos_to_frames()
   if args.build_list:
     print("🤖 generating training files")
-    build_list()
+    build_video_list()
