@@ -8,6 +8,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT
+from sklearn.model_selection import train_test_split
 print(tf.version.VERSION)
 
 def clear_corrupted():
@@ -29,30 +30,19 @@ def clear_corrupted():
 	print("Deleted %d images" % num_skipped)
 
 def load_data():
-	train_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, 'trainlist01_frames.csv'))
-	test_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, "testlist01_frames.csv"))
-	print(train_dataset.head())
-	print(train_dataset.tail())
-	print(test_dataset.head())
-	print(test_dataset.tail())
+	dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, 'new_frames.csv'))
+	print(dataset.head())
+	print(dataset.tail())
 	
-	train_images = []
-	for i in tqdm(range(train_dataset.shape[0])):
-		image = load_img(train_dataset["image"][i], target_size = IMAGE_SIZE)
+	images = []
+	for i in tqdm(range(dataset.shape[0])):
+		image = load_img(dataset["image"][i], target_size = IMAGE_SIZE)
 		image = img_to_array(image)
-		train_images.append(image)
-	X_train = np.array(train_images)
-	y_train = train_dataset["label"]
+		images.append(image)
+	X = np.array(images)
+	y = dataset["label"]
 
-
-	test_images = []
-	for i in tqdm(range(test_dataset.shape[0])):
-		image = load_img(test_dataset["image"][i], target_size = IMAGE_SIZE)
-		image = img_to_array(image)
-		test_images.append(image)
-	X_test = np.array(test_images)
-	y_test = test_dataset["label"]
-	print(y_train)
+	X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.2, stratify = y)
 
 	y_train = pd.get_dummies(y_train)
 	y_test = pd.get_dummies(y_test)

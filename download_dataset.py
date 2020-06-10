@@ -193,12 +193,39 @@ def build_list():
     df.to_csv(filename, index = False)
     print(" file saved")  
 
+def new_list():
+  frames_list = []
+  classes = os.listdir(VIDEOS_ROOT)
+  for classname in classes:
+    class_dir = path.join(FRAMES_ROOT, classname)
+    videos = os.listdir(class_dir)
+    for video in videos:
+      video_dir = path.join(class_dir, video)
+      frames = glob.glob(
+        "{}/*.jpg".format(video_dir)
+      )
+      frames_list.extend(frames[:10])
+
+  df = pd.DataFrame()
+  df['image'] = frames_list
+  df = df[:-1]
+  print(" frames obtained")
+
+  print(" adding labels")
+  labels_list = []
+  for frame in tqdm(range(df.shape[0])):
+    labels_list.append(df['image'][frame].split('/')[2])
+
+  df.to_csv("new_frames.csv", index = False)
+
+
 if __name__ == "__main__":
   # get arguments from terminal
   parser = argparse.ArgumentParser(description = "prepare UCF101 dataset")
   parser.add_argument("--download", action="store_true")
   parser.add_argument("--decode_video", action="store_true")
   parser.add_argument("--build_list", action="store_true")
+  parser.add_argument("--new_list", action="store_true")
   args = parser.parse_args()
 
   if args.download:
@@ -210,3 +237,5 @@ if __name__ == "__main__":
   if args.build_list:
     print("🤖 generating training files")
     build_list()
+  if args.new_list:
+    new_list()
