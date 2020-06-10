@@ -107,7 +107,7 @@ def decode_video_to_frames(video_item):
         )
       )
       break
-    if i % 100 == 0:
+    if i+1 % 100 == 0:
       break
   print("🤓 {} done with {} frames".format(video_name, len(video)))
   sys.stdout.flush()
