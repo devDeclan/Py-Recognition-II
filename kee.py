@@ -20,7 +20,7 @@ train_image = []
 # for loop to read and store frames
 for i in tqdm(range(train.shape[0])):
     # loading the image and keeping the target size as (224,224,3)
-    img = image.load_img('train_1/'+train['image'][i], target_size=(224,224,3))
+    img = image.load_img(train['image'][i], target_size=(224,224,3))
     # converting it to array
     img = image.img_to_array(img)
     # normalizing the pixel value
