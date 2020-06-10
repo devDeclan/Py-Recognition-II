@@ -5,6 +5,7 @@ import glob
 import mmcv
 import random
 import fnmatch
+import pandas as pd
 from os import path
 from tqdm import tqdm
 from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT
@@ -156,6 +157,10 @@ def build_list():
     file = open(splits[i], "r")
     temp = file.read()
     videos = temp.split("\n")
+    test = pd.DataFrame()
+    test['video_name'] = videos
+    test = test[:-1]
+    print(test.head())
   '''classes = os.listdir(FRAMES_ROOT)
   for classname in classes:
     class_dir = path.join(FRAMES_ROOT, classname)
