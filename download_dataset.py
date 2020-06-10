@@ -158,6 +158,8 @@ def build_list():
     file = open(splits[i], "r")
     temp = file.read()
     videos = temp.split("\n")
+
+    print(" obtaining frames")
     frames_list = []
     for video in tqdm(range(len(videos))):
       frames = glob.glob(
@@ -170,13 +172,23 @@ def build_list():
     df = pd.DataFrame()
     df['image'] = frames_list
     df = df[:-1]
+    print(" frames obtained")
 
+    print(" adding labels")
     labels_list = []
     for i in range(df.shape[0]):
       labels_list.append(df['image'][i].split('/')[2])
         
     df['label'] = labels_list
-    print(df.head())
+    print(" labels added")
+
+    filename = "{}_frames.csv".format(
+      splits[i].split(".")[0]
+    )
+    print(" saving to file {}".format(filename))
+    df.to_csv(filename, index = False)
+    print(" file saved")
+
 
 
   '''classes = os.listdir(FRAMES_ROOT)
