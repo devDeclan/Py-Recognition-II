@@ -219,6 +219,8 @@ def new_list():
   labels_list = []
   for frame in tqdm(range(df.shape[0])):
     labels_list.append(df['image'][frame].split('/')[2])
+    
+  df['label'] = labels_list
 
   df.to_csv("dataset/annotations/new_frames.csv", index = False)
 
