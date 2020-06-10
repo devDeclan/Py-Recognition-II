@@ -1,15 +1,15 @@
-import keras
-from keras.models import Sequential
-from keras.applications.vgg16 import VGG16
-from keras.layers import Dense, InputLayer, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D, GlobalMaxPooling2D
-from keras.preprocessing import image
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.layers import Dense, InputLayer, Dropout, Flatten
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, GlobalMaxPooling2D
+from tensorflow.keras.preprocessing import image
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 train = pd.read_csv('dataset/annotations/trainlist01_frames.csv')
 print(train.head())
