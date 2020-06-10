@@ -167,8 +167,9 @@ def build_list():
         )
       )
       frames_list.extend(frames)
-
-    print(frames_list)
+    df = pd.DataFrame()
+    df['image'] = frames_list
+    print(df.head())
 
 
   '''classes = os.listdir(FRAMES_ROOT)
