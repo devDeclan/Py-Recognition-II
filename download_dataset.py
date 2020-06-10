@@ -158,10 +158,19 @@ def build_list():
     file = open(splits[i], "r")
     temp = file.read()
     videos = temp.split("\n")
-    test = pd.DataFrame()
-    test['video_name'] = videos
-    test = test[:-1]
-    print(test.head())
+    frames_list = []
+    for video in tqdm(range(len(videos))):
+      frames = glob.glob(
+        "{}/{}/*.jpg".format(
+          FRAMES_ROOT,
+          videos[video].split(".")[0]
+        )
+      )
+      new_list.extend(frames)
+
+    print(frames_list)
+
+
   '''classes = os.listdir(FRAMES_ROOT)
   for classname in classes:
     class_dir = path.join(FRAMES_ROOT, classname)
