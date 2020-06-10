@@ -51,8 +51,8 @@ def load_data():
 	X_test = np.array(test_images)
 	y_test = test_dataset["label"]
 
-	#y_train = pd.get_dummies(y_train)
-#	y_test = pd.get_dummies(y_test)
+	y_train = pd.get_dummies(y_train)
+	y_test = pd.get_dummies(y_test)
 	print(X_train.shape)
 	print(y_train.shape)
 	
