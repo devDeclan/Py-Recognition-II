@@ -176,8 +176,8 @@ def build_list():
 
     print(" adding labels")
     labels_list = []
-    for i in range(df.shape[0]):
-      labels_list.append(df['image'][i].split('/')[2])
+    for frame in tqdm(range(df.shape[0])):
+      labels_list.append(df['image'][frame].split('/')[2])
         
     df['label'] = labels_list
     print(" labels added")
