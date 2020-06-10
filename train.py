@@ -6,7 +6,7 @@ from os import path
 from tqdm import tqdm
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT
 print(tf.version.VERSION)
 
@@ -37,6 +37,7 @@ def load_data():
 	train_images = []
 	for i in tqdm(range(train_dataset.shape[0])):
 		image = load_img(train_dataset["image"][i], target_size = IMAGE_SIZE)
+		image = img_to_array(image)
 		train_images.append(image)
 	X_train = np.array(train_images)
 	y_train = train_dataset["label"]
@@ -45,6 +46,7 @@ def load_data():
 	test_images = []
 	for i in tqdm(range(test_dataset.shape[0])):
 		image = load_img(test_dataset["image"][i], target_size = IMAGE_SIZE)
+		image = img_to_array(image)
 		test_images.append(image)
 	X_test = np.array(test_images)
 	y_test = test_dataset["label"]
