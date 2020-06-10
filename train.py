@@ -50,6 +50,7 @@ def load_data():
 		test_images.append(image)
 	X_test = np.array(test_images)
 	y_test = test_dataset["label"]
+	print(y_train)
 
 	y_train = pd.get_dummies(y_train)
 	y_test = pd.get_dummies(y_test)
