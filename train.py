@@ -1,10 +1,12 @@
 import os
 import tensorflow as tf
 import pandas as pd
+import numpy as np
 from os import path
+from tqdm import tqdm
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras.preprocessing import image_dataset_from_directory
+from tensorflow.keras.preprocessing.image import load_img
 from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT
 print(tf.version.VERSION)
 
@@ -31,21 +33,23 @@ def load_data():
 	test_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, "testlist01_frames.csv"))
 	print(train_dataset.head())
 	print(test_dataset.head())
-	'''train_dataset = image_dataset_from_directory(
-		directory = TRAIN_DATASET_ROOT,
-		labels = 'inferred',
-		label_mode = 'categorical',
-		batch_size = BATCH_SIZE,
-		image_size = IMAGE_SIZE
-	)
-	valid_dataset = image_dataset_from_directory(
-		directory = VALID_DATASET_ROOT,
-		labels = 'inferred',
-		label_mode = 'categorical',
-		batch_size = BATCH_SIZE,
-		image_size = IMAGE_SIZE
-	)'''
-	return train_dataset, test_dataset
+	
+	train_images = []
+	for i in tqdm(range(train_dataset.shape[0])):
+		image = load_img(train_dataset["image"][i], target_size = IMAGE_SIZE)
+		train_images.append(image)
+	X_train = np.array(train_images)
+	y_train = train_dataset["label"]
+
+
+	test_images = []
+	for i in tqdm(range(test_dataset.shape[0])):
+		image = load_img(test_dataset["image"][i], target_size = IMAGE_SIZE)
+		test_images.append(image)
+	X_test = np.array(test_images)
+	y_test = test_dataset["label"]
+	
+	return X_train, y_train, X_test, y_test
 
 def make_model(input_shape, num_classes):
 	data_augmentation = keras.Sequential(
@@ -105,11 +109,11 @@ def make_model(input_shape, num_classes):
 
 def main():
 	# loading the data
-	train_dataset, valid_dataset = load_data()
+	X_train, y_train, X_test, y_test = load_data()
 
 	# make model
 	model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=101)
-	keras.utils.plot_model(model, show_shapes=True)
+	# keras.utils.plot_model(model, show_shapes=True)
 	print(model.summary())
 
 	# start training
@@ -122,10 +126,15 @@ def main():
 		metrics = ["accuracy"],
 	)
 	model.fit(
-		train_dataset,
+		X_train,
+		y_train,
 		epochs = EPOCHS,
 		callbacks = callbacks,
-		validation_data = valid_dataset,
+		validation_data = (
+			X_test,
+			y_test
+		),
+		batch_size = BATCH_SIZE
 	)
 
 	# save model

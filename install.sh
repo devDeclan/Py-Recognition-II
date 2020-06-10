@@ -16,6 +16,9 @@ sudo apt -qq install unzip -y
 echo "👾 installing wget"
 sudo apt -qq install wget -y
 
+echo "👾 installing graphviz"
+sudo apt -qq install graphviz -y
+
 
 echo "🤖 setting up python environment"
 
