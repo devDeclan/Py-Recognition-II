@@ -11,7 +11,7 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
 
-train = pd.read_csv('dataset/annotations/trainlist01_frames.csv')
+train = pd.read_csv('dataset/annotations/new_frames.csv')
 print(train.head())
 
 # creating an empty list
