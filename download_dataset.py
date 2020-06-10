@@ -169,6 +169,13 @@ def build_list():
       frames_list.extend(frames)
     df = pd.DataFrame()
     df['image'] = frames_list
+    df = df[:-1]
+
+    labels_list = []
+    for i in range(df.shape[0]):
+      labels_list.append(df['image'][i].split('/')[2])
+        
+    df['label'] = labels_list
     print(df.head())
 
 
