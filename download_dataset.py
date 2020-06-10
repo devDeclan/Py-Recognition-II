@@ -163,7 +163,7 @@ def build_list():
 
     print(" obtaining frames")
     frames_list = []
-    for video in tqdm(len(videos))):
+    for video in tqdm(len(videos)):
       frames = glob.glob(
         "{}/{}/*.jpg".format(
           FRAMES_ROOT,
