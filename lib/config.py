@@ -7,7 +7,7 @@ ANNOTATIONS_ROOT = os.path.join(DATASET_ROOT, "annotations")
 
 EPOCHS = 50
 IMAGE_SIZE = (256, 256)
-BATCH_SIZE = 32
+BATCH_SIZE = 2
 WORKERS = 8
 
 MODEL_ROOT = "model"
