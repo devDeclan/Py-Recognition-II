@@ -107,6 +107,8 @@ def decode_video_to_frames(video_item):
         )
       )
       break
+    if i % 100 == 0:
+      break
   print("🤓 {} done with {} frames".format(video_name, len(video)))
   sys.stdout.flush()
   return True
@@ -163,7 +165,7 @@ def build_list():
 
     print(" obtaining frames")
     frames_list = []
-    for video in tqdm(len(videos)):
+    for video in tqdm(range(len(videos))):
       frames = glob.glob(
         "{}/{}/*.jpg".format(
           FRAMES_ROOT,
