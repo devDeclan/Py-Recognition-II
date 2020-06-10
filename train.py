@@ -45,7 +45,7 @@ def load_data():
 		batch_size = BATCH_SIZE,
 		image_size = IMAGE_SIZE
 	)'''
-	return train_dataset, valid_dataset
+	return train_dataset, test_dataset
 
 def make_model(input_shape, num_classes):
 	data_augmentation = keras.Sequential(
