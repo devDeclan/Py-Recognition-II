@@ -153,6 +153,7 @@ def decode_videos_to_frames():
 
 def build_list():
   splits = glob.glob("{}/*list*.txt".format(ANNOTATIONS_ROOT))
+  print(splits)
   for i in tqdm(range(len(splits))):
     file = open(splits[i], "r")
     temp = file.read()
