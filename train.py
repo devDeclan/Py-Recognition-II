@@ -53,6 +53,8 @@ def load_data():
 
 	#y_train = pd.get_dummies(y_train)
 #	y_test = pd.get_dummies(y_test)
+	print(X_train.shape)
+	print(y_train.shape)
 	
 	return X_train, y_train, X_test, y_test
 
