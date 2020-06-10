@@ -166,7 +166,7 @@ def build_list():
           videos[video].split(".")[0]
         )
       )
-      new_list.extend(frames)
+      frames_list.extend(frames)
 
     print(frames_list)
 
