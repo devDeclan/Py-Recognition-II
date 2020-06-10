@@ -189,63 +189,7 @@ def build_list():
     )
     print(" saving to file {}".format(filename))
     df.to_csv(filename, index = False)
-    print(" file saved")
-
-def crop_center_square(frame):
-  y, x = frame.shape[0:2]
-  min_dim = min(y, x)
-  start_x = (x // 2) - (min_dim // 2)
-  start_y = (y // 2) - (min_dim // 2)
-  return frame[start_y:start_y+min_dim,start_x:start_x+min_dim]
-  
-def build_video_list():
-  splits = glob.glob("{}/*list*.txt".format(ANNOTATIONS_ROOT))
-  print(splits)
-  for i in tqdm(range(len(splits))):
-    file = open(splits[i], "r")
-    temp = file.read()
-    videos = temp.split("\n")
-
-    print(" obtaining frames")
-    frames_list = []
-    labels_list = []
-    for vid in tqdm(range(len(videos))):
-      cap = cv2.VideoCapture(path.join(VIDEOS_ROOT, videos[vid]))
-      frames = []
-      try:
-        while True:
-          ret, frame = cap.read()
-          if not ret:
-            break
-          frame = crop_center_square(frame)
-          frame = cv2.resize(frame, resize)
-          frame = frame[:, :, [2, 1, 0]]
-          frames.append(frame)
-          
-          if len(frames) == max_frames:
-            break
-      finally:
-        cap.release()
-      frames_list.append(np.array(frames) / 255.0)
-      labels_list.append(videos[vid].split("/")[0])
-      
-    df = pd.DataFrame()
-    df['video'] = frames_list
-    print(" frames obtained")
-
-    print(" adding labels")
-    df['label'] = labels_list
-    print(" labels added")
-    df = df[:-1]
-
-    filename = "{}_frames.csv".format(
-      splits[i].split(".")[0]
-    )
-    print(" saving to file {}".format(filename))
-    df.to_csv(filename, index = False)
-    print(" file saved")
-  
-  
+    print(" file saved")  
 
 if __name__ == "__main__":
   # get arguments from terminal
@@ -263,4 +207,4 @@ if __name__ == "__main__":
     decode_videos_to_frames()
   if args.build_list:
     print("🤖 generating training files")
-    build_video_list()
+    build_list()

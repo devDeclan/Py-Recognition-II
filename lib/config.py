@@ -6,7 +6,7 @@ VIDEOS_ROOT = os.path.join(DATASET_ROOT, "videos")
 ANNOTATIONS_ROOT = os.path.join(DATASET_ROOT, "annotations")
 
 EPOCHS = 50
-IMAGE_SIZE = (256, 256)
+IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 2
 WORKERS = 8
 
