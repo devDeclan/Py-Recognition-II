@@ -1,9 +1,11 @@
 import os
 import tensorflow as tf
+import pandas as pd
+from os import path
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.preprocessing import image_dataset_from_directory
-from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, MODEL_ROOT, TRAIN_DATASET_ROOT, VALID_DATASET_ROOT
+from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT
 print(tf.version.VERSION)
 
 def clear_corrupted():
@@ -25,20 +27,22 @@ def clear_corrupted():
 	print("Deleted %d images" % num_skipped)
 
 def load_data():
-	train_dataset = image_dataset_from_directory(
-    directory = TRAIN_DATASET_ROOT,
-    labels = 'inferred',
-    label_mode = 'categorical',
-    batch_size = BATCH_SIZE,
-    image_size = IMAGE_SIZE
+	train_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, 'trainlist01_frames.csv'))
+	test_dataset = pd.read_csv(path.join(ANNOTATIONS_ROOT, "testlist01_frames"))
+	'''train_dataset = image_dataset_from_directory(
+		directory = TRAIN_DATASET_ROOT,
+		labels = 'inferred',
+		label_mode = 'categorical',
+		batch_size = BATCH_SIZE,
+		image_size = IMAGE_SIZE
 	)
 	valid_dataset = image_dataset_from_directory(
-    directory = VALID_DATASET_ROOT,
-    labels = 'inferred',
-    label_mode = 'categorical',
-    batch_size = BATCH_SIZE,
-    image_size = IMAGE_SIZE
-	)
+		directory = VALID_DATASET_ROOT,
+		labels = 'inferred',
+		label_mode = 'categorical',
+		batch_size = BATCH_SIZE,
+		image_size = IMAGE_SIZE
+	)'''
 	return train_dataset, valid_dataset
 
 def make_model(input_shape, num_classes):
@@ -102,31 +106,31 @@ def main():
 	train_dataset, valid_dataset = load_data()
 
 	# make model
-	model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=2)
+	model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=101)
 	keras.utils.plot_model(model, show_shapes=True)
 	print(model.summary())
 
 	# start training
 	callbacks = [
-    keras.callbacks.ModelCheckpoint("save_at_{epoch}.h5"),
+		keras.callbacks.ModelCheckpoint("save_at_{epoch}.h5"),
 	]
 	model.compile(
-    optimizer = keras.optimizers.Adam(1e-3),
-    loss = "categorical_crossentropy",
-    metrics = ["accuracy"],
+		optimizer = keras.optimizers.Adam(1e-3),
+		loss = "categorical_crossentropy",
+		metrics = ["accuracy"],
 	)
 	model.fit(
-    train_dataset,
-    epochs = EPOCHS,
-    callbacks = callbacks,
-    validation_data = valid_dataset,
+		train_dataset,
+		epochs = EPOCHS,
+		callbacks = callbacks,
+		validation_data = valid_dataset,
 	)
 
 	# save model
 	model.save(MODEL_ROOT)
 
 	# run inference
-	img = keras.preprocessing.image.load_img(
+	'''img = keras.preprocessing.image.load_img(
     "PetImages/Cat/6779.jpg", target_size=IMAGE_SIZE
 	)
 	img_array = keras.preprocessing.image.img_to_array(img)
@@ -137,7 +141,7 @@ def main():
 	print(
 	    "This image is %.2f percent cat and %.2f percent dog."
 	    % (100 * (1 - score), 100 * score)
-	)
+	)'''
 
 if __name__ == '__main__':
 	main()
