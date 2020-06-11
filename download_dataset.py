@@ -106,7 +106,7 @@ def decode_video_to_frames(video_item):
         )
       count += 1
   cap.release()
-  print("🤓 {} done with {} frames".format(video_name, x))
+  print("🤓 {} done with {} frames".format(video_name, count))
   sys.stdout.flush()
   return True
 
