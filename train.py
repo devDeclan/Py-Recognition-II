@@ -122,7 +122,7 @@ def evaluate_model():
     temp = file.read()
     videos = temp.split('\n')
     # pick up only the classes I need
-    videos = [b for b in videos if all(a in b for a in CLASSES)] 
+    videos = list(set([a for a in videos for b in CLASSES if b in a]))
 
     # creating the dataframe
     test = pd.DataFrame()
