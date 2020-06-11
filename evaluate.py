@@ -133,8 +133,8 @@ def evaluate_model():
         
         prediction_images = []
         for i in range(len(images)):
-            img = image.load_img(images[i], target_size = IMAGE_SIZE + (3,))
-            img = image.img_to_array(img)
+            img = load_img(images[i], target_size = IMAGE_SIZE + (3,))
+            img = img_to_array(img)
             prediction_images.append(img)
             
         # converting all the frames for a test video into numpy array
