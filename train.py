@@ -7,7 +7,7 @@ from tqdm import tqdm
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
-from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT
+from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT, MODEL_ROOT
 from sklearn.model_selection import train_test_split
 print(tf.version.VERSION)
 
@@ -138,7 +138,13 @@ def main():
 	)
 
 	# save model
-	model.save(MODEL_ROOT)
+	model.save(path.join(MODEL_ROOT, "model.h5"))
+
+	#convert model to json
+	json_model = model.to_json()
+	jsonfile = open(path.join(MODEL_ROOT, "model.json"), "w")
+	jsonfile.write(json_model)
+	jsonfile.close()
 
 	# run inference
 	'''img = keras.preprocessing.image.load_img(

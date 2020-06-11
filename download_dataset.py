@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from os import path
 from tqdm import tqdm
-from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT
+from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT, FRAME_RATE, FRAMES_PER_VIDEO
 from multiprocessing import Pool, current_process
 
 def download_dataset():
@@ -91,13 +91,14 @@ def decode_video_to_frames(video_item):
   video = mmcv.VideoReader(full_path)
   for i in tqdm(range(len(video))):
     if video[i] is not None:
-      mmcv.imwrite(
-        video[i],
-        "{}/img_{:05d}.jpg".format(
-          out_full_path,
-          i + 1
+      if i % FRAME_RATE == 0:
+        mmcv.imwrite(
+          video[i],
+          "{}/img_{:05d}.jpg".format(
+            out_full_path,
+            i + 1
+          )
         )
-      )
     else:
       print(
         "😔 length inconsistent!"
@@ -106,8 +107,6 @@ def decode_video_to_frames(video_item):
           len(video)
         )
       )
-      break
-    if i+1 % 100 == 0:
       break
   print("🤓 {} done with {} frames".format(video_name, len(video)))
   sys.stdout.flush()
@@ -172,7 +171,7 @@ def build_list():
           videos[video].split(".")[0]
         )
       )
-      frames_list.extend(frames)
+      frames_list.extend(frames[:FRAMES_PER_VIDEO])
     df = pd.DataFrame()
     df['image'] = frames_list
     df = df[:-1]
@@ -193,38 +192,6 @@ def build_list():
     df.to_csv(filename, index = False)
     print(" file saved")  
 
-def new_list():
-  frames_list = []
-  classes = os.listdir(VIDEOS_ROOT)
-  for classname in classes:
-    class_dir = path.join(FRAMES_ROOT, classname)
-    videos = os.listdir(class_dir)
-    i = 0
-    for video in videos:
-      video_dir = path.join(class_dir, video)
-      frames = glob.glob(
-        "{}/*.jpg".format(video_dir)
-      )
-      frames_list.extend(frames[:10])
-      i = i + 1
-      if i == 20:
-        break
-
-  df = pd.DataFrame()
-  df['image'] = frames_list
-  df = df[:-1]
-  print(" frames obtained")
-
-  print(" adding labels")
-  labels_list = []
-  for frame in tqdm(range(df.shape[0])):
-    labels_list.append(df['image'][frame].split('/')[2])
-
-  df['label'] = labels_list
-
-  df.to_csv("dataset/annotations/new_frames.csv", index = False)
-
-
 if __name__ == "__main__":
   # get arguments from terminal
   parser = argparse.ArgumentParser(description = "prepare UCF101 dataset")
@@ -243,5 +210,3 @@ if __name__ == "__main__":
   if args.build_list:
     print("🤖 generating training files")
     build_list()
-  if args.new_list:
-    new_list()
