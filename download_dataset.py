@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from os import path
 from tqdm import tqdm
-from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT, FRAME_RATE, FRAMES_PER_VIDEO
+from lib.config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT, FRAME_RATE, FRAMES_PER_VIDEO, CLASSES
 from multiprocessing import Pool, current_process
 
 def download_dataset():
@@ -159,6 +159,7 @@ def build_list():
     file = open(splits[i], "r")
     temp = file.read()
     videos = temp.split("\n")
+    videos = [b for b in videos if all(a in b for a in CLASSES)] 
 
     print(" obtaining frames")
     frames_list = []
