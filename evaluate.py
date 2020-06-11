@@ -99,6 +99,10 @@ def evaluate_model():
     predict = []
     actual = []
 
+    # checking if frames root exist otherwise create it
+    if not path.exists("temp"):
+        print("👾 creating folder temp")
+        os.makedirs("temp")
     # for loop to extract frames from each test video
     for i in tqdm(range(test_videos.shape[0])):
         count = 0
