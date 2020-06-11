@@ -143,11 +143,11 @@ def evaluate_model():
         prediction = model.predict_on_batch(prediction_images)
         print(prediction)
         # appending the mode of predictions in predict list to assign the tag to the video
-        predict.append(y.columns.values[s.mode(prediction)[0][0]])
+        # predict.append(y.columns.values[s.mode(prediction)[0][0]])
         # appending the actual tag of the video
         actual.append(videoFile.split('/')[0])
-
-        accuracy_score(predict, actual)*100
+    print(predict)
+    print( accuracy_score(predict, actual) * 100 )
 
 def main():
     # run inference
