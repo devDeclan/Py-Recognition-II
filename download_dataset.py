@@ -88,27 +88,25 @@ def decode_video_to_frames(video_item):
     os.mkdir(out_full_path)
   except OSError:
     pass
-  video = mmcv.VideoReader(full_path)
-  for i in tqdm(range(len(video))):
-    if video[i] is not None:
-      if i % FRAME_RATE == 0:
-        mmcv.imwrite(
-          video[i],
+  cap = cv2.VideoCapture(full_path)   # capturing the video from the given path
+  frameRate = cap.get(5) #frame rate
+  count = 1
+  while(cap.isOpened()):
+      frameId = cap.get(1) #current frame number
+      ret, frame = cap.read()
+      if (ret != True):
+        break
+      if (frameId % math.floor(frameRate) == 0):
+        cv2.imwrite(
           "{}/img_{:05d}.jpg".format(
             out_full_path,
-            i + 1
-          )
+            x
+          ),
+          frame
         )
-    else:
-      print(
-        "😔 length inconsistent!"
-        "early stop with {} out of {} frames".format(
-          i + 1,
-          len(video)
-        )
-      )
-      break
-  print("🤓 {} done with {} frames".format(video_name, len(video)))
+      count += 1
+  cap.release()
+  print("🤓 {} done with {} frames".format(video_name, x))
   sys.stdout.flush()
   return True
 
