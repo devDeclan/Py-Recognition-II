@@ -140,7 +140,7 @@ def evaluate_model():
         # converting all the frames for a test video into numpy array
         prediction_images = np.array(prediction_images)
         # predicting tags for each array
-        prediction = model.predict(prediction_images)
+        prediction = model.predict_classes(prediction_images)
         print(prediction)
         # appending the mode of predictions in predict list to assign the tag to the video
         predict.append(y.columns.values[s.mode(prediction)[0][0]])
