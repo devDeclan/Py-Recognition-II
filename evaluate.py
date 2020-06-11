@@ -90,6 +90,8 @@ def evaluate_model():
 
     # creating the tags
     train = pd.read_csv(path.join(ANNOTATIONS_ROOT, 'trainlist01_frames.csv'))
+    print(len(train))
+    print(len(test_videos))
     y = train['label']
     y = pd.get_dummies(y)
 
