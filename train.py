@@ -192,6 +192,11 @@ def main():
 	model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=len(CLASSES))
 	# keras.utils.plot_model(model, show_shapes=True)
 	print(model.summary())
+	
+	# checking if models root exist otherwise create it
+	if not path.exists(MODEL_ROOT):
+		print("👾 creating folder {}".format(MODEL_ROOT))
+		os.makedirs(MODEL_ROOT)
 
 	# start training
 	callbacks = [
