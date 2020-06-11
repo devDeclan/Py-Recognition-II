@@ -160,6 +160,7 @@ def build_list():
     temp = file.read()
     videos = temp.split("\n")
     videos = list(set([a for a in videos for b in CLASSES if b == a.split("/")[0]]))
+    print(len(videos))
 
     print(" obtaining frames")
     frames_list = []
