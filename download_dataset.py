@@ -2,9 +2,9 @@ import os
 import sys
 import argparse
 import glob
-import mmcv
 import cv2
 import random
+import math
 import fnmatch
 import pandas as pd
 import numpy as np
