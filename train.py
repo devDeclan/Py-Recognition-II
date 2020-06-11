@@ -202,6 +202,11 @@ def main():
         loss = "categorical_crossentropy",
         metrics = ["accuracy"],
     )
+    print(X_train.shape)
+    print(y_train.shape)
+    print(X_test.shape)
+    print(y_test.shape)
+    
     model.fit(
         X_train,
         y_train,
