@@ -204,9 +204,11 @@ def main():
     )
     print(X_train.shape)
     print(y_train.shape)
+    print(y_train)
     print(X_test.shape)
     print(y_test.shape)
-    
+    print(y_test)
+
     model.fit(
         X_train,
         y_train,
