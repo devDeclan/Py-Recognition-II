@@ -100,7 +100,7 @@ def decode_video_to_frames(video_item):
         cv2.imwrite(
           "{}/img_{:05d}.jpg".format(
             out_full_path,
-            x
+            count
           ),
           frame
         )
