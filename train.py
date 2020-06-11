@@ -203,7 +203,7 @@ def main():
 
     # start training
     callbacks = [
-        keras.callbacks.ModelCheckpoint("{}/save_at_{epoch}.h5".format(MODEL_ROOT)),
+        keras.callbacks.ModelCheckpoint("{}/save_at_{epoch:02d}.h5".format(MODEL_ROOT)),
     ]
     model.compile(
         optimizer = keras.optimizers.Adam(1e-3),
