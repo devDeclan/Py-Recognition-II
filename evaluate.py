@@ -122,6 +122,7 @@ def evaluate_model():
         
         # reading all the frames from temp folder
         images = glob("temp/*.jpg")
+        print("imaegess lenth")
         print(len(images))
         
         prediction_images = []
