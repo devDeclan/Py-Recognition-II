@@ -12,6 +12,7 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from lib.config import EPOCHS, IMAGE_SIZE, BATCH_SIZE, ANNOTATIONS_ROOT, FRAMES_ROOT, MODEL_ROOT, CLASSES, VIDEOS_ROOT
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from scipy import stats as s
 print(tf.version.VERSION)
 
 def clear_corrupted():
@@ -98,12 +99,8 @@ def make_model(input_shape, num_classes):
     x = layers.Activation("relu")(x)
 
     x = layers.GlobalAveragePooling2D()(x)
-    if num_classes == 2:
-        activation = "sigmoid"
-        units = 1
-    else:
-        activation = "softmax"
-        units = num_classes
+    activation = "softmax"
+    units = num_classes
 
     x = layers.Dropout(0.5)(x)
     outputs = layers.Dense(units, activation=activation)(x)
@@ -111,8 +108,8 @@ def make_model(input_shape, num_classes):
 
 def evaluate_model():
 
-    inference_model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=len(CLASSES))
-    inference_model.load_weights(path.join(MODEL_ROOT, "model.hdf5"))
+    model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=len(CLASSES))
+    model.load_weights(path.join(MODEL_ROOT, "model.hdf5"))
     model.compile(
         optimizer = keras.optimizers.Adam(1e-3),
         loss = "categorical_crossentropy",
@@ -122,7 +119,7 @@ def evaluate_model():
     temp = file.read()
     videos = temp.split('\n')
     # pick up only the classes I need
-    videos = list(set([a for a in videos for b in CLASSES if b in a]))
+    videos = list(set([a for a in videos for b in CLASSES if b in a.split("/")[0]]))
 
     # creating the dataframe
     test = pd.DataFrame()
@@ -167,17 +164,12 @@ def evaluate_model():
         
         prediction_images = []
         for i in range(len(images)):
-            img = image.load_img(images[i], target_size=(224,224,3))
+            img = image.load_img(images[i], target_size = IMAGE_SIZE + (3,))
             img = image.img_to_array(img)
-            img = img/255
             prediction_images.append(img)
             
         # converting all the frames for a test video into numpy array
         prediction_images = np.array(prediction_images)
-        # extracting features using pre-trained model
-        prediction_images = base_model.predict(prediction_images)
-        # converting features in one dimensional array
-        prediction_images = prediction_images.reshape(prediction_images.shape[0], 7*7*512)
         # predicting tags for each array
         prediction = model.predict_classes(prediction_images)
         # appending the mode of predictions in predict list to assign the tag to the video
