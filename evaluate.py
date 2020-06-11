@@ -75,7 +75,7 @@ def evaluate_model():
         loss = "categorical_crossentropy",
         metrics = ["accuracy"],
     )
-    file = open("testlist01.txt", "r")
+    file = open(path.join(ANNOTATIONS_ROOT, "testlist01.txt"), "r")
     temp = file.read()
     videos = temp.split('\n')
     # pick up only the classes I need
