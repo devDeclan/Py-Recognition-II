@@ -139,7 +139,7 @@ def main(list_number = 1):
 
   # save model
   "🤖 saving model"
-  model.save(path.join(MODEL_ROOT, "model"))
+  keras.experimental.export_saved_model(model, path.join(MODEL_ROOT, "model.h5"))
 
   # convert model to json
   "🤖 saving model to json"

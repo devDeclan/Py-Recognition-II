@@ -121,5 +121,16 @@ Epoch 8/10    loss: 0.2666 - accuracy: 0.9177 - val_loss: 0.2410 - val_accuracy:
 Epoch 9/10    loss: 0.2440 - accuracy: 0.9242 - val_loss: 0.3723 - val_accuracy: 0.9031
 Epoch 10/10   loss: 0.2351 - accuracy: 0.9276 - val_loss: 0.2738 - val_accuracy: 0.9159
 
+Epoch 1/10    loss: 2.1097 - accuracy: 0.4165 - val_loss: 1.8097 - val_accuracy: 0.5114
+Epoch 2/10    loss: 1.1350 - accuracy: 0.6671 - val_loss: 0.7318 - val_accuracy: 0.7753
+Epoch 3/10    loss: 0.7560 - accuracy: 0.7734 - val_loss: 1.4568 - val_accuracy: 0.6664
+Epoch 4/10    loss: 0.5615 - accuracy: 0.8302 - val_loss: 0.4479 - val_accuracy: 0.8675
+Epoch 5/10    loss: 0.4598 - accuracy: 0.8615 - val_loss: 0.5400 - val_accuracy: 0.8464
+Epoch 6/10    loss: 0.3648 - accuracy: 0.8869 - val_loss: 0.4057 - val_accuracy: 0.8861
+Epoch 7/10    loss: 0.3235 - accuracy: 0.9008 - val_loss: 0.4452 - val_accuracy: 0.8794
+Epoch 8/10    loss: 0.2840 - accuracy: 0.9128 - val_loss: 0.2345 - val_accuracy: 0.9273
+Epoch 9/10    loss: 0.2598 - accuracy: 0.9189 - val_loss: 0.2343 - val_accuracy: 0.9280
+Epoch 10/10   loss: 0.2228 - accuracy: 0.9317 - val_loss: 0.2633 - val_accuracy: 0.9265
+
 
 NB: Values may differ due to the shuffling of data
