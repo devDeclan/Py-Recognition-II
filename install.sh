@@ -29,10 +29,9 @@ echo "👾 creating virtual environment"
 virtualenv venv
 source venv/bin/activate
 echo "❗ dont forget to terminate environment"
-echo "run deactivate"
+echo "run $ deactivate"
 
 echo "👾 installing python requirements"
 python -m pip install -r requirements.txt
-
 
 echo "🤖 yaayyy you are all set up, happy hacking!!!"
