@@ -140,10 +140,11 @@ def evaluate_model():
         # converting all the frames for a test video into numpy array
         prediction_images = np.array(prediction_images)
         # predicting tags for each array
-        prediction = model.predict_on_batch(prediction_images)
+        # prediction = model.predict_on_batch(prediction_images)
+        prediction = np.argmax(model.predict(prediction_images), axis=-1)
         print(prediction)
         # appending the mode of predictions in predict list to assign the tag to the video
-        # predict.append(y.columns.values[s.mode(prediction)[0][0]])
+        predict.append(y.columns.values[s.mode(prediction)[0][0]])
         # appending the actual tag of the video
         actual.append(videoFile.split('/')[0])
     print(predict)
