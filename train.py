@@ -138,11 +138,11 @@ def main(list_number = 1):
   )
 
   # save model
-  "🤖 saving model weights"
-  model.save(path.join(MODEL_ROOT, "model.hdf5"))
+  "🤖 saving model"
+  model.save(path.join(MODEL_ROOT, "model"))
 
   # convert model to json
-  "🤖 saving model"
+  "🤖 saving model to json"
   json_model = model.to_json()
   jsonfile = open(path.join(MODEL_ROOT, "model.json"), "w")
   jsonfile.write(json_model)

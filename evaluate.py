@@ -68,9 +68,9 @@ def make_model(input_shape, num_classes):
 
 def evaluate_model(list_number = 1):
   print("👾 evaluating model on list number {}".format(list_number))
-  model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=len(CLASSES))
-  print("👾 loading weights")
-  model.load_weights(path.join(MODEL_ROOT, "model.hdf5"))
+ # model = make_model(input_shape=IMAGE_SIZE + (3,), num_classes=len(CLASSES))
+ # print("👾 loading weights")
+  model = keras.models.load_model(path.join(MODEL_ROOT, "model"))
   model.compile(
     optimizer = keras.optimizers.Adam(1e-3),
     loss = "categorical_crossentropy",
