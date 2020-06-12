@@ -8,6 +8,7 @@ import math
 import fnmatch
 import pandas as pd
 import numpy as np
+import tensorflow as tf
 from os import path
 from tqdm import tqdm
 from config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT, CLASSES#, FRAMES_PER_VIDEO
