@@ -34,6 +34,12 @@ Storage 100GB
 
 --------------------------------------------------
 
+dataset page - https://www.crcv.ucf.edu/data/UCF101.php
+dataset file - https://www.crcv.ucf.edu/data/UCF101/UCF101.rar
+annotations  - https://www.crcv.ucf.edu/data/UCF101/UCF101TrainTestSplits-RecognitionTask.zip
+
+--------------------------------------------------
+
 EPOCHS = 10
 IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 16

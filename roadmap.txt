@@ -41,7 +41,7 @@ Still had issues with the processes being killed so had to reduce the image size
 I guess that worked. had a loss of 0.2738 and an accuracy of 0.9159
 The weight and the model have been saved.
 
-Evaluating the model was done by using videos stated in the testlist annotations from the dataset. had an accuracy of 0.4.. 
+Evaluating the model was done by using videos stated in the testlist annotations from the dataset. had an accuracy of 51.24 %
 although the model indicated and accuracy of 0.9159
 But I guess thats as a result of using too little data which is not exactly my fault cos resources were not available.
 

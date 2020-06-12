@@ -131,8 +131,6 @@ def evaluate_model(list_number = 1):
     
     # reading all the frames from temp folder
     images = glob("temp/*.jpg")
-    print("imaegess lenth")
-    print(len(images))
     
     prediction_images = []
     for i in range(len(images)):
@@ -149,7 +147,8 @@ def evaluate_model(list_number = 1):
     predict.append(y.columns.values[s.mode(prediction)[0][0]])
     # appending the actual tag of the video
     actual.append(videoFile.split('/')[0])
-  print(predict)
+    
+  print("evaluation done")
   print( accuracy_score(predict, actual) * 100 )
 
 if __name__ == '__main__':
