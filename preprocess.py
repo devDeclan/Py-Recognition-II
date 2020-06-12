@@ -132,7 +132,7 @@ def clear_corrupted():
     folder_path = path.join(FRAMES_ROOT, folder_name)
     for sub_folder_name in os.listdir(folder_path):
       sub_folder_path = path.join(folder_path, sub_folder_name)
-      for fpath in os.listdir(sub_folder_path):
+      for fname in os.listdir(sub_folder_path):
         fpath = path.join(sub_folder_path, fname)
         try:
           fobj = open(fpath, "rb")
