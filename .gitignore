@@ -1,2 +1,3 @@
 dataset/
 model/save_at*.h5
+__pycache__
