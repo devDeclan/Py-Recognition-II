@@ -11,7 +11,7 @@ import numpy as np
 import tensorflow as tf
 from os import path
 from tqdm import tqdm
-from config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT, CLASSES#, FRAMES_PER_VIDEO
+from config import DATASET_ROOT, WORKERS, VIDEOS_ROOT, FRAMES_ROOT, ANNOTATIONS_ROOT, CLASSES
 from multiprocessing import Pool, current_process
 
 def decode_video_to_frames(video_item):
@@ -105,7 +105,7 @@ def build_list():
           videos[video].split(".")[0]
         )
       )
-      frames_list.extend(frames) #[:FRAMES_PER_VIDEO])
+      frames_list.extend(frames)
     df = pd.DataFrame()
     df['image'] = frames_list
     df = df[:-1]

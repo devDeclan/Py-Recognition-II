@@ -91,7 +91,7 @@ def make_model(input_shape, num_classes):
 
 def main(list_number = 1):
   # loading the data
-  print("🤖 loading data from train list")
+  print("🤖 loading data from train list {}".format(list_number))
   X_train, y_train, X_test, y_test = load_data(list_number)
 
   # make model
