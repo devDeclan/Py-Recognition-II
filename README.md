@@ -39,8 +39,6 @@ IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 16
 WORKERS = 8
 
-MODEL_ROOT = "model"
-
 CLASSES = [
 	"Archery",
 	"BalanceBeam",
@@ -92,74 +90,28 @@ Non-trainable params: 8,736
 
 --------------------------------------------------
 
-(27698, 128, 128, 3)
-(27698, 40)
+data shape
+X = (27698, 128, 128, 3)
+y = (27698, 40)
 
-(22158, 128, 128, 3)
-(22158, 40)
+X_train = (22158, 128, 128, 3)
+y_train = (22158, 40)
 
-(5540, 128, 128, 3)
-(5540, 40)
+X_test = (5540, 128, 128, 3)
+y_test = (5540, 40)
 
 --------------------------------------------------
 
-Epoch 1/10
-	loss: 2.1444
-	accuracy: 0.4080
-	val_loss: 1.4796
-	val_accuracy: 0.5682
+Epoch 1/10    loss: 2.1167 - accuracy: 0.4215 - val_loss: 1.2968 - val_accuracy: 0.6370
+Epoch 2/10    loss: 1.1180 - accuracy: 0.6769 - val_loss: 1.4677 - val_accuracy: 0.6563
+Epoch 3/10    loss: 0.7255 - accuracy: 0.7843 - val_loss: 0.6212 - val_accuracy: 0.8249
+Epoch 4/10    loss: 0.5500 - accuracy: 0.8325 - val_loss: 0.7047 - val_accuracy: 0.8159
+Epoch 5/10    loss: 0.4354 - accuracy: 0.8688 - val_loss: 0.6255 - val_accuracy: 0.8186
+Epoch 6/10    loss: 0.3673 - accuracy: 0.8877 - val_loss: 0.2463 - val_accuracy: 0.9245
+Epoch 7/10    loss: 0.3232 - accuracy: 0.9008 - val_loss: 0.3872 - val_accuracy: 0.8930
+Epoch 8/10    loss: 0.2666 - accuracy: 0.9177 - val_loss: 0.2410 - val_accuracy: 0.9332
+Epoch 9/10    loss: 0.2440 - accuracy: 0.9242 - val_loss: 0.3723 - val_accuracy: 0.9031
+Epoch 10/10   loss: 0.2351 - accuracy: 0.9276 - val_loss: 0.2738 - val_accuracy: 0.9159
 
-Epoch 2/10
-	loss: 1.1553
-	accuracy: 0.6656
-	val_loss: 0.6885
-	val_accuracy: 0.8000
 
-Epoch 3/10
-	loss: 0.7696
-	accuracy: 0.7693
-	val_loss: 0.7628
-	val_accuracy: 0.7850
-
-Epoch 4/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
-Epoch 5/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
-Epoch 6/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
-Epoch 7/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
-Epoch 8/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
-Epoch 9/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
-Epoch 10/10
-	loss:
-	accuracy:
-	val_loss:
-	val_accuracy:
-	
+NB: Values may differ due to the shuffling of data

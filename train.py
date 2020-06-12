@@ -61,6 +61,7 @@ def make_model(input_shape, num_classes):
 
   previous_block_activation = x  # Set aside residual
 
+  # had to use a for loop, can't type it over and over again
   for size in [128, 256, 512, 728]:
     x = layers.Activation("relu")(x)
     x = layers.SeparableConv2D(size, 3, padding="same")(x)
@@ -81,10 +82,12 @@ def make_model(input_shape, num_classes):
   x = layers.BatchNormalization()(x)
   x = layers.Activation("relu")(x)
 
+  # using softmax here cos Im working with multiple classes
   x = layers.GlobalAveragePooling2D()(x)
   activation = "softmax"
   units = num_classes
 
+  # add dropouts to prevent overfitting
   x = layers.Dropout(0.5)(x)
   outputs = layers.Dense(units, activation=activation)(x)
   return keras.Model(inputs, outputs)

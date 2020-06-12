@@ -1,9 +1,53 @@
 1. Get video data
 2. Obtain frames from video data
 3. Structure frames directories for keras preprocessing
-4. load data with keras
+4. load data with keras preprocessing
+5. train model
+6. evaluate model
+7. develop frontend
+
+Project started off by finding data
+kinetics 400 dataset was first encountered at https://deepmind.com/research/open-source/kinetics.
+this dataset had 400 classes with at least links to 400 youtube videos for each class
+thats a lot of videos.
+picked up a subset of the classes but eventually cos the dataset was large and
+was facing HTTP 429 Too Many Requests response code when downloading
+I guess one person cant jam youtube
 
 
-REFERENCES
-Download script hugely dabbed from https://github.com/open-mmlab/mmaction
-I can"t come and kee myself
+ucf101 was later discsovered from https://www.crcv.ucf.edu/data/UCF101.php
+This dataset with size 6.7 gig had 13320 videos categorized into 101 classes. I guess thats why its called ucf101.
+Since I was running it on AWS, I needed to find a way to get the data up there so wrote some scripts to handle thats
+(could have written them straightforward as bash scripts, but I guess I needed to add some flair so I called processes from a python script, download_dataset.py)
+
+Training with these videos was going to be a tedious task so hey why don't we just get frames out of these videos and do away with them.
+preprocess.py handled that beautifully by taking the video and obtaining the frames using open-cv and and then saving the
+images paths and their labels into a csv file so we could easily work with that.
+Added a function to take out corrupted frames but it looks like there are no corrupted frames in there cos throughout my training, none was deleted.
+The dataset comes with an annotations file which divides the videos into train and test sets
+
+next was to define my model.
+This was like hell
+
+applying relu as activations in there cos we are probably looking at positive values inputs to our neurons.
+appplying a lot of batchnormalizations in there after activations cos I want to improve the speed, performance, and stability of our neural network.
+blended in some SeparableConv2D inn there with Conv2D layers cos they are faster than Conv2D applied it in sizes of 128, 256, 512, 728.
+added some dropouts in there to prevent overfitting
+model has an input shape of (none, 128, 128, 3) and an output of shape (none, 40) where 40 is the number of classes cos I want to predict for each of the scenarios
+
+Training was done on the train split defined by the annotations.
+Processes were being killed all the time due to the size of the data so eventually had to reduce the number of frames being picked.
+Still had issues so I had to work with just 40 classes. It better to have less classes and better prediction than to have more classes and poor predictions.
+Still had issues with the processes being killed so had to reduce the image size from (256, 256) to (128, 128) and batch size from 32 to 16 as seen in config.py
+I guess that worked. had a loss of 0.2738 and an accuracy of 0.9159
+The weight and the model have been saved.
+
+Evaluating the model was done by using videos stated in the testlist annotations from the dataset. had an accuracy of 0.4.. 
+although the model indicated and accuracy of 0.9159
+But I guess thats as a result of using too little data which is not exactly my fault cos resources were not available.
+
+Frontend was built with django cos I didnt want any stress, Im very familiar with it.
+Provided options for recognizing activities from camera given you had one and from videos.
+Frames are obtained from the videos and are passed through the prediction and then, the images are being sent back as HttpStream to the client.
+well Im return a stream of images cos videos are ideally a collection of fast moving related images.
+Also some videos are quite large and it would take to generate all predictions and return a video(who wants to wait that long)
