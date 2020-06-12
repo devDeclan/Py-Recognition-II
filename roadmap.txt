@@ -28,7 +28,6 @@ The dataset comes with an annotations file which divides the videos into train a
 
 next was to define my model.
 This was like hell
-
 applying relu as activations in there cos we are probably looking at positive values inputs to our neurons.
 appplying a lot of batchnormalizations in there after activations cos I want to improve the speed, performance, and stability of our neural network.
 blended in some SeparableConv2D inn there with Conv2D layers cos they are faster than Conv2D applied it in sizes of 128, 256, 512, 728.
