@@ -88,6 +88,8 @@ CLASSES = [
 	"VolleyballSpiking",
 ]
 
+NB: Configuration Editable in config.py
+
 --------------------------------------------------
 
 Total params: 2,822,624
