@@ -18,7 +18,7 @@ from scipy import stats as s
 def evaluate_model(list_number = 1):
   print("👾 evaluating model on list number {}".format(list_number))
   print("👾 loading weights")
-  model = tf.compat.v1.keras.experimental.load_from_saved_model(path.join(MODEL_ROOT, "model.h5"))
+  model = tf.compat.v1.keras.experimental.load_from_saved_model(path.join(MODEL_ROOT, "model"))
   model.build(IMAGE_SIZE + (3,))
   print(model.summary())
   print("👾 reading test file")
